@@ -18,7 +18,7 @@ template:
     git branch: >-
       [master](https://github.com/sam-almighty/simple-toolchain/tree/master)
 toolchain:
-  name: test
+  name: think-starter
   template:
     getting_started:
       $ref: "#/messages/template.gettingStarted"

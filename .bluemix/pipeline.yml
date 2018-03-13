@@ -4,7 +4,7 @@ stages:
   inputs:
   - type: git
     branch: master
-    service: ${APP_REPO}
+    service: think-starter
   triggers:
   - type: stage
   properties:
@@ -24,7 +24,7 @@ stages:
   - name: Install Android SDK, Fastlane and build apk
     type: builder
     build_type: shell
-    script: |
+    script: |-
 			#!/bin/bash
 			export JAVA_HOME=/opt/IBM/java8
 			cd /home/pipeline

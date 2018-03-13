@@ -18,7 +18,7 @@ template:
     git branch: >-
       [master](https://github.com/sam-almighty/simple-toolchain/tree/master)
 toolchain:
-  name: think-starter-new
+  name: think-starter
   template:
     getting_started:
       $ref: "#/messages/template.gettingStarted"
@@ -26,7 +26,7 @@ services:
   testscript-repo:
     service_id: githubpublic
     parameters:
-      repo_name: 'testscript-repo-'
+      repo_name: 'testscript-repo-{{timestamp}}'
       repo_url: 'https://github.com/sam-almighty/testdroid-samples'
       type: clone
       has_issues: true
@@ -34,7 +34,7 @@ services:
   app-repo:
     service_id: githubpublic
     parameters:
-      repo_name: 'app-repo-'
+      repo_name: 'app-repo-{{timestamp}}'
       repo_url: 'https://github.com/sam-almighty/basic-starter'
       type: clone
       has_issues: false
@@ -53,13 +53,13 @@ services:
         env:
           APP_REPO: app-repo
           SCRIPT_REPO: testscript-repo
-          PROD_SPACE_NAME: ''
-          PROD_ORG_NAME: ''
-          PROD_REGION_ID: ''
+          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
+          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
+          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
         execute: false
 form:
   pipeline:
     parameters:
-      prod-app-name: 'pipeline-think-starter-new'
+      prod-app-name: '{{services.app-repo.parameters.repo_name}}'
     schema:
       $ref: deploy.json

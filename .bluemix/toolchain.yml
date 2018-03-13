@@ -27,7 +27,7 @@ services:
     service_id: githubpublic
     parameters:
       repo_name: 'testscript-repo-'
-      repo_url: 'http://'
+      repo_url: 'https://github.com/sam-almighty/testdroid-samples'
       type: clone
       has_issues: true
       enable_traceability: true
@@ -35,7 +35,7 @@ services:
     service_id: githubpublic
     parameters:
       repo_name: 'app-repo-'
-      repo_url: 'http://'
+      repo_url: 'https://github.com/sam-almighty/basic-starter'
       type: clone
       has_issues: false
       enable_traceability: false

@@ -4,7 +4,7 @@ stages:
   inputs:
   - type: git
     branch: master
-    service: https://github.com/sam-almighty/basic-starter
+    service: ${APP_REPO}
   triggers:
   - type: stage
   properties:

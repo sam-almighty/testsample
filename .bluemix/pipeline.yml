@@ -127,4 +127,4 @@ stages:
       testID=$(curl -H "Accept: application/json" -u $bitbarApiKey -X GET $bitbarAppiumClientSideProject | awk -F'[:]' '{print $3}' | awk -F'[,]' '{print $1}')
       title="Test Results for build "$testID
       body="Check the detail reports here : "$bitbarTestReportLocation$testID
-      curl -H "Content-Type: application/json" -H "Authorization: Bearer $gitToken" --include --request POST --data "{"title": "$title", "body": "$body"}" $issueGitRepo
+      curl -H "Content-Type: application/json" -H "Authorization: Bearer $gitToken" --include --request POST --data "{\"title\": \"$title\", \"body\": \"$body\"}" $issueGitRepo

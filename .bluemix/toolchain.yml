@@ -1,0 +1,65 @@
+version: '2'
+messages:
+  $i18n: locales.yml
+template:
+  name:
+    $ref: "#/messages/template.name"
+  description:
+    $ref: "#/messages/template.description"
+  header: '![](toolchain.svg?localize)'
+  icon: icon.svg
+  required:
+    - build
+    - app-repo
+    - testscript-repo
+  info:
+    git url: >-
+      [https://github.com/sam-almighty/simple-toolchain](https://github.com/sam-almighty/simple-toolchain)
+    git branch: >-
+      [master](https://github.com/sam-almighty/simple-toolchain/tree/master)
+toolchain:
+  name: test
+  template:
+    getting_started:
+      $ref: "#/messages/template.gettingStarted"
+services:
+  testscript-repo:
+    service_id: githubpublic
+    parameters:
+      repo_name: 'testscript-repo-'
+      repo_url: 'http://'
+      type: clone
+      has_issues: true
+      enable_traceability: true
+  app-repo:
+    service_id: githubpublic
+    parameters:
+      repo_name: 'app-repo-'
+      repo_url: 'http://'
+      type: clone
+      has_issues: false
+      enable_traceability: false
+  build:
+    service_id: pipeline
+    parameters:
+      services:
+        - app-repo
+        - testscript-repo
+      name: ''
+      ui-pipeline: true
+      configuration:
+        content:
+          $text: pipeline.yml
+        env:
+          APP_REPO: app-repo
+          SCRIPT_REPO: testscript-repo
+          PROD_SPACE_NAME: ''
+          PROD_ORG_NAME: ''
+          PROD_REGION_ID: ''
+        execute: false
+form:
+  pipeline:
+    parameters:
+      prod-app-name: ''
+    schema:
+      $ref: deploy.json

@@ -4,7 +4,7 @@ stages:
   inputs:
   - type: git
     branch: master
-    service: think-starter
+    service: https://github.com/sam-almighty/basic-starter
   triggers:
   - type: stage
   properties:

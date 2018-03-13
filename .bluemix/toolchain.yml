@@ -18,7 +18,7 @@ template:
     git branch: >-
       [master](https://github.com/sam-almighty/simple-toolchain/tree/master)
 toolchain:
-  name: think-starter
+  name: think-starter-new
   template:
     getting_started:
       $ref: "#/messages/template.gettingStarted"
@@ -60,6 +60,6 @@ services:
 form:
   pipeline:
     parameters:
-      prod-app-name: 'pipeline-think-starter'
+      prod-app-name: 'pipeline-think-starter-new'
     schema:
       $ref: deploy.json

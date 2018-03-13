@@ -4,7 +4,7 @@ stages:
   inputs:
   - type: git
     branch: master
-    service: think-starter
+    service: ${APP_REPO}
   triggers:
   - type: stage
   properties:
@@ -28,17 +28,26 @@ stages:
       #!/bin/bash
       export JAVA_HOME=/opt/IBM/java8
       cd /home/pipeline
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
       # Android sdk
       wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip
       sudo apt-get install unzip
       unzip /home/pipeline/sdk-tools-linux-3859397.zip
       echo 'y' | /home/pipeline/tools/bin/sdkmanager --licenses
       echo 'y' | /home/pipeline/tools/bin/sdkmanager "platform-tools" "platforms;android-26"
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
       # Prereq for installing Fastlane: Install RVM
       gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
       \curl -L https://get.rvm.io | bash -s stable --ruby
       source /home/pipeline/.rvm/scripts/rvm get stable --autolibs=enable
       gem -v
+<<<<<<< HEAD
       # Install Fastlane
       gem install fastlane -NV
       # Build the apk file
@@ -47,6 +56,20 @@ stages:
       mkdir /home/pipeline/temp
       cp ./app/build/outputs/apk/app-release.apk /home/pipeline/temp
       mkdir /home/pipeline/appupload
+=======
+
+      # Install Fastlane
+      gem install fastlane -NV
+
+      # Build the apk file
+      cd /home/pipeline/$BUILD_ID
+      fastlane beta
+
+      mkdir /home/pipeline/temp
+      cp ./app/build/outputs/apk/app-release.apk /home/pipeline/temp
+      mkdir /home/pipeline/appupload
+
+>>>>>>> origin/master
       # Push the generated apk for git hub for testing
       git config --global user.name $gitPushUser
       git config --global user.email $gitPushEmail
@@ -119,7 +142,7 @@ stages:
     value: https://api.github.com/repos/sam-almighty/testdroid-samples/issues
     type: text
   jobs:
-  - name: PublishResults
+  - name: LogsUpload
     type: builder
     artifact_dir: ''
     build_type: shell
@@ -127,4 +150,8 @@ stages:
       testID=$(curl -H "Accept: application/json" -u $bitbarApiKey -X GET $bitbarAppiumClientSideProject | awk -F'[:]' '{print $3}' | awk -F'[,]' '{print $1}')
       title="Test Results for build "$testID
       body="Check the detail reports here : "$bitbarTestReportLocation$testID
+<<<<<<< HEAD
       curl -H "Content-Type: application/json" -H "Authorization: Bearer $gitToken" --include --request POST --data "{"title": "$title", "body": "$body"}" $issueGitRepo
+=======
+      curl -H "Content-Type: application/json" -H "Authorization: Bearer $gitToken" --include --request POST --data "{\"title\": \"$title\", \"body\": \"$body\"}" $issueGitRepo
+>>>>>>> origin/master
